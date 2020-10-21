@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  constructor(){
+    super()
+    this.state = {
+      appleProductsArr: ["iPhone", "AirPods Pro", "iMac", "Macbook Pro", "AppleTV", "HomePod"],
+      filteredProducts: ""
+    }
+  }
+
+  changeHandler(letter){
+    this.setState({
+      filteredProducts: letter
+    })
+  }
+  render() {
+    const appleProducts = this.state.appleProductsArr
+    .filter(product => product.includes(this.state.filteredProducts))
+    .map(product => <h2>{product}</h2> )
+
+    return (
+      
+      <div className="App">
+        <input onChange={e => this.changeHandler(e.target.value)}/>
+        {appleProducts}
+      </div>
+    )
+  }
 }
 
 export default App;
